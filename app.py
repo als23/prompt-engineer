@@ -44,7 +44,7 @@ def generate_post(topic):
     meta_description = response_meta.choices[0].message.content.strip()
 
     prompt_post = f"Напишите подробный и увлекательный пост для блога на тему: {topic}, учитывая следующие последние новости:\n{recent_news}\n\nИспользуйте короткие абзацы, подзаголовки, примеры и ключевые слова для лучшего восприятия и SEO-оптимизации."
-    response_post = openai.chatcompletions.create(
+    response_post = openai.chat.completions.create(
         model="gpt-4",
         messages=[{"role": "user", "content": prompt_post}],
         max_tokens=2048,
