@@ -11,7 +11,7 @@ class Topic(BaseModel):
     topic: str
 
 def get_recent_news(topic):
-    url = f"https://newsapi.org/v2/everything?q={topic}&apiKey=YOUR_NEWS_API_KEY"
+    url = f"https://newsapi.org/v2/everything?q={topic}&apiKey=46bc7c4d105847e6a61ee7e56fdee7fa"
     response = requests.get(url)
     articles = response.json()["articles"]
     recent_news = [article["title"] for article in articles[:3]]
