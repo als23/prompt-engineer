@@ -22,8 +22,8 @@ def generate_post(topic):
     recent_news = get_recent_news(topic)
 
     prompt_title = f"Придумайте привлекательный заголовок для поста на тему: {topic}"
-    response_title = openai.chat.completions.create(
-        model="gpt-4",
+    response_title = openai.ChatCompletion.create(
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt_title}],
         max_tokens=50,
         n=1,
@@ -33,8 +33,8 @@ def generate_post(topic):
     title = response_title.choices[0].message.content.strip()
 
     prompt_meta = f"Напишите краткое, но информативное мета-описание для поста с заголовком: {title}"
-    response_meta = openai.chat.completions.create(
-        model="gpt-4",
+    response_meta = openai.ChatCompletion.create(
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt_meta}],
         max_tokens=100,
         n=1,
@@ -44,8 +44,8 @@ def generate_post(topic):
     meta_description = response_meta.choices[0].message.content.strip()
 
     prompt_post = f"Напишите подробный и увлекательный пост для блога на тему: {topic}, учитывая следующие последние новости:\n{recent_news}\n\nИспользуйте короткие абзацы, подзаголовки, примеры и ключевые слова для лучшего восприятия и SEO-оптимизации."
-    response_post = openai.chat.completions.create(
-        model="gpt-4",
+    response_post = openai.ChatCompletion.create(
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt_post}],
         max_tokens=2048,
         n=1,
@@ -64,9 +64,10 @@ def generate_post(topic):
 async def generate_post_api(topic: Topic):
     generated_post = generate_post(topic.topic)
     return generated_post
-@app.post("/heartbeat")
+
+@app.get("/heartbeat")
 async def heartbeat_api():
-    return "OK"
+    return {"status": "OK"}
 
 if __name__ == "__main__":
     import uvicorn
