@@ -65,7 +65,7 @@ async def generate_post_api(topic: Topic):
     generated_post = generate_post(topic.topic)
     return generated_post
 
-@app.get("/heartbeat")
+@app.post("/heartbeat")
 async def heartbeat_api():
     return {"status": "OK"}
 
